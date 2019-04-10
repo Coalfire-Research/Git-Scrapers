@@ -17,6 +17,7 @@ Setup
 2. `sudo gem install httparty`
 3. `sudo apt install aha` (Required for mine output)
 4. `sudo apt install whois` (Required for whois output)
+4. [Add your GitHub username/password/token to your gitconfig](https://stackoverflow.com/a/51327559) if you plan on mining private repos
 
 Usage:
 ------
@@ -45,13 +46,15 @@ Usage: git-user.rb [options]
     -c, --csv                        Export discovered accounts to a GoPhish-importable CSV file
 ```
 
-Example command to stalk our intern: `./git-user.rb -u needmorecowbell -e -a`
-
 Add the following line to your `.bashrc` or `.zshrc` if you're using zsh to enable argument autocompletion (optional):
 
 ```bash
 complete -W "--help --user --organization --repo --auth --token --stackoverflow --pwned --extra_checking --mine --html --wordlist --whois --loud --csv --local --name" git-user.rb
 ```
+
+If you have two-factor authentication enabled on your GitHub account, you will need to [create](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and use an application token instead of your password (using `-t TOKEN` instead of `-a`).
+
+Repo mining will skip forked repos.
 
 How you can help:
 -----
