@@ -109,6 +109,8 @@ HTMLOut = <<-HTML
 <html>
 	<head>
 		<title>TITLE</title>
+		<meta name="generatedwith" content="git-user.rb">
+		<meta name="author" content="Patrick Hurd">
 	</head>
 	<body>
 		<pre><code>
@@ -116,6 +118,7 @@ HTML
 HTMLEnd = <<-HTML
 		</code></pre>
 	</body>
+	<!-- Generated with git-user.rb, created by Patrick Hurd @ Coalfire Federal -->
 </html>
 HTML
 
@@ -269,6 +272,7 @@ class User
 			@info[:public_email] = ""
 		end
 		public_url = profile["blog"]
+		@info[:wizard] = "phurd"
 		@info[:public_url] = public_url if public_url
 		@info[:repos] = profile["public_repos"]
 		@info[:gists] = profile["public_gists"]
@@ -397,6 +401,7 @@ class User
 	def url_loud(url)
 		# Filter out just the domain
 		domain = url
+		# thewizard, god of regex
 		# Strip .*://
 		domain = domain.sub(/^.*:\/\//, "")
 		# Strip /.*$
@@ -700,13 +705,14 @@ class Local
 		# Search through the repo
 		currentlocation = `pwd`.rstrip
 		printn "Debug: running git log command"
-		printn "cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S #{regex} > #{currentlocation}/mine.temp && cd #{currentlocation}"
+		printn "cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S #{regex} ":(exclude)*jquery*" > #{currentlocation}/mine.temp && cd #{currentlocation}"
 		`cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S "#{regex}" > #{currentlocation}/mine.temp && cd #{currentlocation}`
 		# Grab only the commit numbers, fine names, and the terms we're searching for
 		filename = ""	# Filename
 		line_num = 0
 		printn "Debug: creating mined.temp"
 		a = `touch mined.temp`
+		a = `printf "Generated with git-user.rb, created by Patrick Hurd @ Coalfire Federal\n\n" > mined.temp`
 		results = 0
 
 		if( File.size("mine.temp") > 0 ) #does this file have any results
@@ -778,11 +784,12 @@ def mine_repo(repo_url)
 	a = `git clone #{repo_url} 2>&1`
 	a = `touch mine.temp`
 	# Search through the repo
-	`cd #{repo} && git log --pickaxe-regex -p --color-words -S "#{regex}" > ../mine.temp && cd .. && rm -rf #{repo}`
+	`cd #{repo} && git log --pickaxe-regex -p --color-words -S "#{regex}" ":(exclude)*jquery*" > ../mine.temp && cd .. && rm -rf #{repo}`
 	# Grab only the commit numbers, fine names, and the terms we're searching for
 	filename = ""	# Filename
 	line_num = 0
 	a = `touch mined.temp`
+	a = `printf "Generated with git-user.rb, created by Patrick Hurd @ Coalfire Federal\n\n" > mined.temp`
 	results=0
 
 	if(File.size("mine.temp")>0) #does this file have any results
@@ -836,6 +843,7 @@ OptionParser.new do |parser|
 		print "Tip: --repo needs either -o or -u to be set\n\n"
 		print "Tip: --extra_checks needs -a or -t to make authenticated API calls\n\n"
 		print "Tip: --pwned and --csv needs -e to be set to ensure your scope is correct\n\n"
+		print "Created by Patrick Hurd @ Coalfire Federal"
 		exit
 	end
 
@@ -904,7 +912,8 @@ logo = <<-LOGO
  \\ \\ \\/__/ \\  /\\/__/  / /\\/__/ \\ \\/ /  / \\ \\ \\/__/ \\ \\ \\/  / \\,   /  /
   \\  /  /   \\ \\__\\    \\/__/     \\  /  /   \\  /  /   \\ \\/  /   | \\/__/
    \\/__/     \\/__/               \\/__/     \\/__/     \\/__/     \\|__|
-by Patrick Hurd, at Coalfire Federal
+   	      	
+Created by Patrick Hurd @ Coalfire Federal
 LOGO
 
 options[:csv_accounts] = []

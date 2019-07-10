@@ -1,9 +1,10 @@
 git-user.rb
 ======
+Patrick Hurd, Coalfire Federal
+
+---
 
 OSINT tool specifically for targetting developers.
-
-Author: Patrick Hurd ([@Djent-](https://github.com/Djent-))
 
 What you get:
 - Profile information
@@ -59,4 +60,3 @@ Repo mining will skip forked repos.
 How you can help:
 -----
 Check out the issues
-
