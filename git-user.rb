@@ -654,10 +654,10 @@ class Local
 	def scrape()
 		# git log --pretty=format:"%an|%ae|%cn|%ce"
 		printhn "Authors:"
-		printhn `cd #{@options[:local]} && git log --pretty=format:"%an - %ae" | sort -u`
+		printhn `cd "#{@options[:local]}" && git log --pretty=format:"%an - %ae" | sort -u`
 		printhn "Committers:"
-		printhn `cd #{@options[:local]} && git log --pretty=format:"%cn - %ce" | sort -u`
-		`cd #{@options[:local]} && git log --pretty=format:"%an|%ae|%cn|%ce"`.split(/\r?\n/).each do |line|
+		printhn `cd "#{@options[:local]}" && git log --pretty=format:"%cn - %ce" | sort -u`
+		`cd "#{@options[:local]}" && git log --pretty=format:"%an|%ae|%cn|%ce"`.split(/\r?\n/).each do |line|
 			format = line.split(/\|/)
 			@authors.push({:name => format[0], :email => format[1]})
 			@committers.push({:name => format[2], :email => format[3]})
@@ -705,8 +705,8 @@ class Local
 		# Search through the repo
 		currentlocation = `pwd`.rstrip
 		printn "Debug: running git log command"
-		printn "cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S #{regex} ":(exclude)*jquery*" > #{currentlocation}/mine.temp && cd #{currentlocation}"
-		`cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S "#{regex}" > #{currentlocation}/mine.temp && cd #{currentlocation}`
+		printn "cd #{@options[:local]} && git log --pickaxe-regex -p --color-words -S #{regex} \":(exclude)*jquery*\" > #{currentlocation}/mine.temp && cd #{currentlocation}"
+		`cd "#{@options[:local]}" && git log --pickaxe-regex -p --color-words -S "#{regex}" ":(exclude)*jquery*"> "#{currentlocation}/mine.temp" && cd "#{currentlocation}"`
 		# Grab only the commit numbers, fine names, and the terms we're searching for
 		filename = ""	# Filename
 		line_num = 0
@@ -735,7 +735,7 @@ class Local
 			return
 		end
 		printh "Writing ./report/#{@options[:name]}_mined.html (results: #{results})\n"
-		a = `cat mined.temp | aha -t #{@options[:name]} > report/#{@options[:name]}_mined.html`
+		a = `cat mined.temp | aha -t #{@options[:name]} > "report/#{@options[:name]}_mined.html"`
 		return
 		# TODO: Figure out whether there's an upstream URL for the local repo and reference that
 		# Post-processing
@@ -843,7 +843,7 @@ OptionParser.new do |parser|
 		print "Tip: --repo needs either -o or -u to be set\n\n"
 		print "Tip: --extra_checks needs -a or -t to make authenticated API calls\n\n"
 		print "Tip: --pwned and --csv needs -e to be set to ensure your scope is correct\n\n"
-		print "Created by Patrick Hurd @ Coalfire Federal"
+		print "Created by Patrick Hurd @ Coalfire Federal\n"
 		exit
 	end
 
