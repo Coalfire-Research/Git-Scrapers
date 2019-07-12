@@ -29,7 +29,7 @@ Usage: git-user.rb [options]
     -u, --user USERNAME              User to gather info from
     -o, --organization ORGANIZATION  Organization to scrape
     -r, --repo REPO                  The repo whom's contributors to scrape
-        --local PATH                 Perform scrape on a repo local to your filesystem
+        --local ABSOLUTE_PATH        Perform scrape on a repo local to your filesystem
         --name NAME                  Name to refer to a --local repo in report filenames
 
     -a, --auth                       Authenticate with HTTP basic auth

@@ -857,7 +857,7 @@ OptionParser.new do |parser|
 	parser.on("-r", "--repo REPO", "The repo whom's contributors to scrape") do |v|
 		options[:repo] = v
 	end
-	parser.on("--local PATH", "Perform scrape on a repo local to your filesystem") do |v|
+	parser.on("--local ABSOLUTE_PATH", "Perform scrape on a repo local to your filesystem") do |v|
 		options[:local] = v
 	end
 	parser.on("--name NAME", "Name to refer to a --local repo in report filenames") do |v|
