@@ -53,6 +53,10 @@ Add the following line to your `.bashrc` or `.zshrc` if you're using zsh to enab
 complete -W "--help --user --organization --repo --auth --token --stackoverflow --pwned --extra_checking --mine --html --wordlist --whois --loud --csv --local --name" git-user.rb
 ```
 
+Example command:
+
+`./git-user.rb -t deadb33f... -o Coalfire-Research -r Git-Scrapers -s -p -e -m --html -c`
+
 If you have two-factor authentication enabled on your GitHub account, you will need to [create](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) and use an application token instead of your password (using `-t TOKEN` instead of `-a`).
 
 Repo mining will skip forked repos.
